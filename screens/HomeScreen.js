@@ -14,6 +14,9 @@ import { useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import Carousel from "../components/Carousel";
+import Services from "../components/Services";
+
+
 const HomeScreen = () => {
   const [displayCurrentAddress, setdisplayCurrentAddress] = useState(
     "We are loading your location"
@@ -121,9 +124,10 @@ const HomeScreen = () => {
 
 
       {/* Image Crousel */}
-
         <Carousel/>
 
+        {/* Services list */}
+        <Services/>
 
     </SafeAreaView>
   );
@@ -133,6 +137,8 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS === "android" ? 35 : 0,
+    paddingTop: Platform.OS === "android" ? 35 : 0, 
+    flex:1,
+    backgroundColor:"#F0F0F0",
   },
 });

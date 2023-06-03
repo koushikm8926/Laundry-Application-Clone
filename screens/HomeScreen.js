@@ -1,22 +1,30 @@
-import { StyleSheet, Text, View,Alert } from 'react-native'
-import React, { useState } from 'react'
+import {
+  StyleSheet,
+  Text,
+  View,
+  Alert,
+  SafeAreaView,
+  Pressable,
+  Image,
+} from "react-native";
+import React, { useState } from "react";
 import * as Location from "expo-location";
-import { useEffect } from 'react';
-
-
+import { useEffect } from "react";
+import { Ionicons } from "@expo/vector-icons";
 const HomeScreen = () => {
-  
-  const [displayCurrentAddress,setdisplayCurrentAddress]=useState("We are loading your location");
-  const [locationServicesEnabled,setlocationServicesEnabled]=useState(false);
-  useEffect(()=>{
+  const [displayCurrentAddress, setdisplayCurrentAddress] = useState(
+    "We are loading your location"
+  );
+  const [locationServicesEnabled, setlocationServicesEnabled] = useState(false);
+
+  useEffect(() => {
     chechIfLocationEnabled();
     getCurrentLocation();
+  }, []);
 
-  },[])
-  
   const chechIfLocationEnabled = async () => {
-    let enabled =  await Location.hasServicesEnabledAsync();
-    if (!enabled){
+    let enabled = await Location.hasServicesEnabledAsync();
+    if (!enabled) {
       Alert.alert(
         "Location services is not enabled",
         "Please enable Location service",
@@ -24,20 +32,20 @@ const HomeScreen = () => {
           {
             text: "Cancel",
             onPress: () => console.log("Cancel Pressed"),
-            style: "cancel"
+            style: "cancel",
           },
-          { text: "OK", onPress: () => console.log("OK Pressed") }
+          { text: "OK", onPress: () => console.log("OK Pressed") },
         ],
         { cancelable: false }
       );
-    }else{
-      setlocationServicesEnabled(enabled)
+    } else {
+      setlocationServicesEnabled(enabled);
     }
-  }
-  
-  const getCurrentLocation = async ()=>{
-    let {status}= await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted" ){
+  };
+
+  const getCurrentLocation = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
       Alert.alert(
         "Permission denied",
         "Allow app to use location services",
@@ -45,50 +53,66 @@ const HomeScreen = () => {
           {
             text: "Cancel",
             onPress: () => console.log("Cancel Pressed"),
-            style: "cancel"
+            style: "cancel",
           },
-          { text: "OK", onPress: () => console.log("OK Pressed") }
+          { text: "OK", onPress: () => console.log("OK Pressed") },
         ],
         { cancelable: false }
       );
-    };
+    }
 
-    const {coords}= await Location.getCurrentPositionAsync();
-    console.log(coords)
-    if(coords){
-      const {latitude, longitude} = coords; 
-      let response =  await Location.reverseGeocodeAsync({
+    const { coords } = await Location.getCurrentPositionAsync();
+    // console.log(coords)
+
+    if (coords) {
+      const { latitude, longitude } = coords;
+      let response = await Location.reverseGeocodeAsync({
         latitude,
         longitude,
       });
 
-      console.log(response)
-      for (let  item  of  response){
-        let address = `${item.name} ${item.city} ${item.postalCode}`
-        setdisplayCurrentAddress(address)
+      // console.log(response)
+
+      for (let item of response) {
+        let address = `${item.region} , ${item.city} , ${item.postalCode}`;
+        setdisplayCurrentAddress(address);
       }
-
     }
-    
-  }
-
+  };
 
   return (
-    <View style={styles.container}>
-      <View>
-      <Text>
-        {displayCurrentAddress}
-      </Text>
+    <SafeAreaView style={styles.container}>
+     
+     {/* {this is for location and profile} */}
+      <View style={{flexDirection:"row", alignItems:'center'}}>
+        <Ionicons name="ios-location-sharp" size={24} color="#fd5c63" />
+        <View>
+          <Text style={{ fontSize: 18, fontWeight: "600" }}>Home</Text>
+          <Text>{displayCurrentAddress} </Text>
+        </View>
+        <Pressable style={{marginLeft:'auto',marginRight:7,}}>
+          <Image
+            style={{ height: 40, width: 40, borderRadius: 20 }}
+            source={{
+              uri: "https://lh3.googleusercontent.com/ogw/AOLn63HFmxkZ6bzl4LpTvxLPurTyH-r6kFYlOaaOBgZAcA=s64-c-mo",
+            }}
+          />
+        </Pressable>
       </View>
-      <Text>HomeScreen</Text>
-    </View>
-  )
-}
 
-export default HomeScreen
+    {/* this is for  searchbar  */}
+    <View>
+      
+    </View>
+
+    </SafeAreaView>
+  );
+};
+
+export default HomeScreen;
 
 const styles = StyleSheet.create({
-    container:{
-        paddingTop: Platform.OS === 'android' ? 35 : 0
-    }
-})
+  container: {
+    paddingTop: Platform.OS === "android" ? 35 : 0,
+  },
+});

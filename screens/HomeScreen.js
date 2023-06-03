@@ -6,11 +6,13 @@ import {
   SafeAreaView,
   Pressable,
   Image,
+  TextInput,
 } from "react-native";
 import React, { useState } from "react";
 import * as Location from "expo-location";
 import { useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 const HomeScreen = () => {
   const [displayCurrentAddress, setdisplayCurrentAddress] = useState(
     "We are loading your location"
@@ -82,15 +84,14 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-     
-     {/* {this is for location and profile} */}
-      <View style={{flexDirection:"row", alignItems:'center'}}>
+      {/* {this is for location and profile} */}
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
         <Ionicons name="ios-location-sharp" size={24} color="#fd5c63" />
         <View>
           <Text style={{ fontSize: 18, fontWeight: "600" }}>Home</Text>
           <Text>{displayCurrentAddress} </Text>
         </View>
-        <Pressable style={{marginLeft:'auto',marginRight:7,}}>
+        <Pressable style={{ marginLeft: "auto", marginRight: 7 }}>
           <Image
             style={{ height: 40, width: 40, borderRadius: 20 }}
             source={{
@@ -100,11 +101,22 @@ const HomeScreen = () => {
         </Pressable>
       </View>
 
-    {/* this is for  searchbar  */}
-    <View>
-      
-    </View>
-
+      {/* this is for  searchbar  */}
+      <View
+        style={{
+          margin: 10,
+          padding: 10,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          borderWidth:0.8,
+          borderColor:"#C0C0C0",
+          borderRadius:7,
+        }}
+      >
+        <TextInput placeholder="Search for items" />
+        <Feather name="search" size={24} color="#fd5c63" />
+      </View>
     </SafeAreaView>
   );
 };

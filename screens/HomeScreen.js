@@ -17,9 +17,15 @@ import { Feather } from "@expo/vector-icons";
 import Carousel from "../components/Carousel";
 import Services from "../components/Services";
 import Dressitem from "../components/Dressitem";
+import { useSelector } from "react-redux";
 
 
 const HomeScreen = () => {
+
+  const cart = useSelector((state)=>state.cart.cart);
+  console.log(cart);
+
+
   const [displayCurrentAddress, setdisplayCurrentAddress] = useState(
     "We are loading your location"
   );

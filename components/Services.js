@@ -41,12 +41,12 @@ const Services = () => {
         {services.map((service, index) => (
           <Pressable
             key={index}
-            style={{ margin: 10 }}
             style={{
               backgroundColor: "white",
               padding: 20,
               margin: 10,
               borderRadius: 7,
+              margin: 10
             }}
           >
             <Image

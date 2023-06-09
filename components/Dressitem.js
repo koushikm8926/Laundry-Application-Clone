@@ -57,8 +57,8 @@ const Dressitem = ({ item }) => {
           >
             <Pressable
             onPress={()=>{
-              dispatch(decrementQuantity(item));
-              dispatch(decrementQtu(item));
+              dispatch(decrementQuantity(item)); //cart
+              dispatch(decrementQtu(item)); //product
             }}
               style={{
                 width: 26,
@@ -98,8 +98,8 @@ const Dressitem = ({ item }) => {
 
             <Pressable
             onPress={()=>{
-              dispatch(incrementQuantity(item));
-              dispatch(incrementQty(item));
+              dispatch(incrementQuantity(item)); //cart
+              dispatch(incrementQty(item)); //product
             }}
               style={{
                 width: 26,

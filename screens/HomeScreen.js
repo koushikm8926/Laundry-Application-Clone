@@ -23,7 +23,9 @@ import { getProducts } from "../ProductReducer";
 const HomeScreen = () => {
   const cart = useSelector((state) => state.cart.cart);
   console.log(cart);
-
+  const total = cart
+    .map((item) => item.quantity * item.price)
+    .reduce((curr, prev) => curr + prev, 0);
   const [displayCurrentAddress, setdisplayCurrentAddress] = useState(
     "We are loading your location"
   );
@@ -208,26 +210,28 @@ const HomeScreen = () => {
         ))}
       </ScrollView>
 
-      <Pressable
-        style={{
-          backgroundColor: "#088F8F",
-          padding: 10,
-          marginBottom: 5,
-          margin: 15,
-          borderRadius: 7,
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent:"space-between",
-        }}
-      >
-        <View>
-          <Text>{cart.length} items</Text>
-          <Text>Extra charges may apply</Text>
-        </View>
-        <Pressable>
-          <Text>Proced to pickup</Text>
+      {total === 0 ? null : (
+        <Pressable
+          style={{
+            backgroundColor: "#088F8F",
+            padding: 10,
+            marginBottom: 10,
+            margin: 15,
+            borderRadius: 7,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <View>
+            <Text style={{fontSize:17, fontWeight:'600',color:"white"}}>{cart.length} items | $ {total}</Text>
+            <Text style={{fontSize:15, fontWeight:'400',color:'white',marginVertical:6,}}>Extra charges may apply</Text>
+          </View>
+          <Pressable>
+            <Text style={{fontSize:17, fontWeight:'600', color:'white'}}>Proced to pickup</Text>
+          </Pressable>
         </Pressable>
-      </Pressable>
+      )}
     </>
   );
 };

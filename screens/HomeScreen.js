@@ -20,12 +20,9 @@ import Dressitem from "../components/Dressitem";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../ProductReducer";
 
-
 const HomeScreen = () => {
-
-  const cart = useSelector((state)=>state.cart.cart);
+  const cart = useSelector((state) => state.cart.cart);
   console.log(cart);
-
 
   const [displayCurrentAddress, setdisplayCurrentAddress] = useState(
     "We are loading your location"
@@ -95,21 +92,20 @@ const HomeScreen = () => {
     }
   };
 
-  const product = useSelector((state)=> state.product.product );
+  const product = useSelector((state) => state.product.product);
   // console.log("product array ", product);
-  const dispatch =useDispatch();
-  useEffect (()=>{
-    if(product.length >0 ) return;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (product.length > 0) return;
 
-    const fetchProducts =()=>{
-      services.map((service)=> dispatch(getProducts(service))  );
+    const fetchProducts = () => {
+      services.map((service) => dispatch(getProducts(service)));
     };
-    
+
     fetchProducts();
+  }, []);
 
-  },[])
-
-  console.log(product)
+  console.log(product);
 
   const services = [
     {
@@ -163,56 +159,76 @@ const HomeScreen = () => {
     },
   ];
 
-
   return (
-    <ScrollView style={styles.container}>
-      {/* {this is for location and profile} */}
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <Ionicons name="ios-location-sharp" size={24} color="#fd5c63" />
-        <View>
-          <Text style={{ fontSize: 18, fontWeight: "600" }}>Home</Text>
-          <Text>{displayCurrentAddress} </Text>
+    <>
+      <ScrollView style={styles.container}>
+        {/* {this is for location and profile} */}
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Ionicons name="ios-location-sharp" size={24} color="#fd5c63" />
+          <View>
+            <Text style={{ fontSize: 18, fontWeight: "600" }}>Home</Text>
+            <Text>{displayCurrentAddress} </Text>
+          </View>
+          <Pressable style={{ marginLeft: "auto", marginRight: 7 }}>
+            <Image
+              style={{ height: 40, width: 40, borderRadius: 20 }}
+              source={{
+                uri: "https://lh3.googleusercontent.com/ogw/AOLn63HFmxkZ6bzl4LpTvxLPurTyH-r6kFYlOaaOBgZAcA=s64-c-mo",
+              }}
+            />
+          </Pressable>
         </View>
-        <Pressable style={{ marginLeft: "auto", marginRight: 7 }}>
-          <Image
-            style={{ height: 40, width: 40, borderRadius: 20 }}
-            source={{
-              uri: "https://lh3.googleusercontent.com/ogw/AOLn63HFmxkZ6bzl4LpTvxLPurTyH-r6kFYlOaaOBgZAcA=s64-c-mo",
-            }}
-          />
-        </Pressable>
-      </View>
 
-      {/* this is for  searchbar  */}
-      <View
-        style={{
-          margin: 10,
-          padding: 10,
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          borderWidth:0.8,
-          borderColor:"#C0C0C0",
-          borderRadius:7,
-        }}
-      >
-        <TextInput placeholder="Search for items" />
-        <Feather name="search" size={24} color="#fd5c63" />
-      </View>
+        {/* this is for  searchbar  */}
+        <View
+          style={{
+            margin: 10,
+            padding: 10,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            borderWidth: 0.8,
+            borderColor: "#C0C0C0",
+            borderRadius: 7,
+          }}
+        >
+          <TextInput placeholder="Search for items" />
+          <Feather name="search" size={24} color="#fd5c63" />
+        </View>
 
-
-      {/* Image Crousel */}
-        <Carousel/>
+        {/* Image Crousel */}
+        <Carousel />
 
         {/* Services list */}
-        <Services/>
-{/* Render all the products */}
+        <Services />
 
-        {product.map((item, index)=>(
-          <Dressitem key={index} item={item}/>
+        {/* Render all the products */}
+        {product.map((item, index) => (
+          <Dressitem key={index} item={item} />
         ))}
-        
-    </ScrollView>
+      </ScrollView>
+
+      <Pressable
+        style={{
+          backgroundColor: "#088F8F",
+          padding: 10,
+          marginBottom: 5,
+          margin: 15,
+          borderRadius: 7,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent:"space-between",
+        }}
+      >
+        <View>
+          <Text>{cart.length} items</Text>
+          <Text>Extra charges may apply</Text>
+        </View>
+        <Pressable>
+          <Text>Proced to pickup</Text>
+        </Pressable>
+      </Pressable>
+    </>
   );
 };
 
@@ -220,8 +236,8 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS === "android" ? 35 : 0, 
-    flex:1,
-    backgroundColor:"#F0F0F0",
+    paddingTop: Platform.OS === "android" ? 35 : 0,
+    flex: 1,
+    backgroundColor: "#F0F0F0",
   },
 });

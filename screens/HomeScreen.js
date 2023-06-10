@@ -19,8 +19,13 @@ import Services from "../components/Services";
 import Dressitem from "../components/Dressitem";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../ProductReducer";
+import { useNavigation } from "@react-navigation/native";
 
 const HomeScreen = () => {
+
+  const navigation= useNavigation();
+
+
   const cart = useSelector((state) => state.cart.cart);
   console.log(cart);
   const total = cart
@@ -227,7 +232,7 @@ const HomeScreen = () => {
             <Text style={{fontSize:17, fontWeight:'600',color:"white"}}>{cart.length} items | $ {total}</Text>
             <Text style={{fontSize:15, fontWeight:'400',color:'white',marginVertical:6,}}>Extra charges may apply</Text>
           </View>
-          <Pressable>
+          <Pressable onPress={()=> navigation.navigate("PickUp")}>
             <Text style={{fontSize:17, fontWeight:'600', color:'white'}}>Proced to pickup</Text>
           </Pressable>
         </Pressable>

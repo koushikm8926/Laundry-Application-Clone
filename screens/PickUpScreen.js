@@ -38,7 +38,9 @@ const PickUpScreen = () => {
       );
     }
     if(selectedDate && selectedTime && delivery){
-      navigation.replace("Cart")
+      navigation.replace("Cart",{
+        Time:selectedTime,
+      })
     }
   }
   const deliveryTime = [
@@ -109,6 +111,7 @@ const PickUpScreen = () => {
           Pick Up Date
         </Text>
         <HorizontalDatepicker
+        
           mode="gregorian"
           startDate={new Date("2023-06-01")}
           endDate={new Date("2023-06-31")}

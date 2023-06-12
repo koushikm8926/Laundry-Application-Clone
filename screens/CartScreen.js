@@ -9,11 +9,13 @@ import {
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { decrementQuantity, incrementQuantity } from "../CartReducer";
 import { decrementQtu, incrementQty } from "../ProductReducer";
 
 const CartScreen = () => {
+
+ const route = useRoute();
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const cart = useSelector((state) => state.cart.cart);
@@ -217,13 +219,14 @@ const CartScreen = () => {
                     flexDirection: "row",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    marginVertical: 10,
+                  
                   }}
                 >
+                <Text  style={{ fontSize: 18, fontWeight: 400, color: "grey" }} >Selected Time </Text>
                   <Text
                     style={{ fontSize: 18, fontWeight: 400, color: "grey" }}
                   >
-                    Selected Date
+                   {route.params.Time}
                   </Text>
                 </View>
 
@@ -239,6 +242,7 @@ const CartScreen = () => {
                   >
                     Number of Days{" "}
                   </Text>
+                  <Text> </Text>
                 </View>
 
                 <View

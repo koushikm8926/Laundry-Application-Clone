@@ -10,7 +10,10 @@ import {
 import React, { useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 const LoginScreen = () => {
+  const navigation = useNavigation();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return (
@@ -79,10 +82,21 @@ const LoginScreen = () => {
               padding: 15,
             }}
           >
-            <Text style={{fontSize:18, textAlign:'center', color:'white'}}>Login </Text>
+            <Text style={{ fontSize: 18, textAlign: "center", color: "white" }}>
+              Login{" "}
+            </Text>
           </Pressable>
-          <Pressable style={{}}>
-            <Text style={{textAlign:'center',fontSize:17, color:"grey", fontWeight:500, }}>Dont have an account? Sign Up</Text>
+          <Pressable onPress={()=>navigation.navigate("Register")} >
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 17,
+                color: "grey",
+                fontWeight: 500,
+              }}
+            >
+              Dont have an account? Sign Up
+            </Text>
           </Pressable>
         </View>
       </KeyboardAvoidingView>

@@ -168,7 +168,7 @@ const CartScreen = () => {
                   >
                     Item Total
                   </Text>
-                  <Text style={{ fontSize: 18, fontWeight: 400 }}>
+                  <Text style={{ fontSize: 18, fontWeight: 400, color:'#088F8f' }}>
                     $ {total}
                   </Text>
                 </View>
@@ -224,7 +224,7 @@ const CartScreen = () => {
                 >
                 <Text  style={{ fontSize: 18, fontWeight: 400, color: "grey" }} >Selected Time </Text>
                   <Text
-                    style={{ fontSize: 18, fontWeight: 400, color: "grey" }}
+                    style={{ fontSize: 18, fontWeight: 400, color:'#088F8f' }}
                   >
                    {route.params.Time}
                   </Text>
@@ -242,7 +242,8 @@ const CartScreen = () => {
                   >
                     Number of Days{" "}
                   </Text>
-                  <Text> </Text>
+                  <Text     style={{ fontSize: 18, fontWeight: 400, color:'#088F8f' }} >{route.params.Days}</Text>
+                 
                 </View>
 
                 <View
@@ -255,8 +256,9 @@ const CartScreen = () => {
                   <Text
                     style={{ fontSize: 18, fontWeight: 400, color: "grey" }}
                   >
-                    Selected PickUp Time{" "}
+                    Selected PickUp Time
                   </Text>
+                  <Text> </Text>
                 </View>
 
                 <View

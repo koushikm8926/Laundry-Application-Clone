@@ -7,15 +7,38 @@ import {
   TextInput,
   Pressable,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
+
+
 const LoginScreen = () => {
   const navigation = useNavigation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(()=>{
+    const unsubscribe =auth.onAuthStateChanged((authUser)=>{
+      if(authUser){
+        navigation.navigate("Home")
+      }
+    });
+    return unsubscribe;
+  },[])
+
+  const login = ()=> {
+    signInWithEmailAndPassword(auth,email,password).then((userCredentials)=> {
+      console.log("user credential",userCredentials);
+      const user = userCredentials.user;
+      console.log("user details", user);
+    })
+  }
+
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView>
@@ -72,6 +95,7 @@ const LoginScreen = () => {
             />
           </View>
           <Pressable
+          onPress={login}
             style={{
               width: 200,
               backgroundColor: "#318CE7",
@@ -86,7 +110,7 @@ const LoginScreen = () => {
               Login{" "}
             </Text>
           </Pressable>
-          <Pressable onPress={()=>navigation.navigate("Register")} >
+          <Pressable onPress={() => navigation.navigate("Register")}>
             <Text
               style={{
                 textAlign: "center",

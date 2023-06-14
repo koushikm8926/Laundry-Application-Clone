@@ -17,12 +17,16 @@ import { auth } from "../firebase";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-
+  const [loading,setLoading]= useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(()=>{
+    setLoading(true);
     const unsubscribe =auth.onAuthStateChanged((authUser)=>{
+      if(!authUser){
+        setLoading(false);
+      }
       if(authUser){
         navigation.navigate("Home")
       }
@@ -41,6 +45,12 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+
+    {loading ? (
+      <View>
+        <Text>loading</Text>
+      </View>
+    ):(
       <KeyboardAvoidingView>
         <View
           style={{
@@ -124,6 +134,9 @@ const LoginScreen = () => {
           </Pressable>
         </View>
       </KeyboardAvoidingView>
+    )}
+
+
     </SafeAreaView>
   );
 };
